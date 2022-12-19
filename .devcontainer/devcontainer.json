@@ -1,0 +1,4 @@
+{
+  "name": ".NET (latest)",
+  "image": "mcr.microsoft.com/devcontainers/dotnet"
+}
