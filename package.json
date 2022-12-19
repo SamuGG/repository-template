@@ -1,4 +1,12 @@
 {
   "name": "code-project-template",
-  "packageManager": "yarn@3.3.0"
+  "packageManager": "yarn@3.3.0",
+  "private": true,
+  "description": "Custom development automation toolset",
+  "version": "0.0.0",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "github:user/repo"
+  }
 }
