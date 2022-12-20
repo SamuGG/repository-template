@@ -69,6 +69,14 @@ lint-markdown: check-interactive set-interactive ## Lint markdown files
 	@echo "✔ Done"
 
 ###
+##@ Release Management
+###
+
+.PHONY: generate-changelog
+generate-changelog: ## Generate changelog
+	yarn run version
+
+###
 # Docker flags configuration
 # This allows us to see the results from container executables (like cspell) 
 # when we run it manually, and switch the interactive mode off when running 
