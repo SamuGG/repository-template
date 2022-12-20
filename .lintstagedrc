@@ -1,0 +1,7 @@
+{
+  "*.md": [
+    "make lint-markdown DOCKER_INTERACTIVE=false",
+    "make spell-check DOCKER_INTERACTIVE=false"
+  ],
+  "README.md": "make toc-markdown DOCKER_INTERACTIVE=false"
+}
