@@ -72,6 +72,10 @@ lint-markdown: check-interactive set-interactive ## Lint markdown files
 ##@ Release Management
 ###
 
+.PHONY: create-release
+create-release: generate-changelog ## Generate changelog and create release
+	yarn semantic-release
+
 .PHONY: generate-changelog
 generate-changelog: ## Generate changelog
 	yarn run version
