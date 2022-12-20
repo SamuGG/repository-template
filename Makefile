@@ -5,6 +5,7 @@
 MOUNT_PATH := $(shell echo $${LOCAL_WORKSPACE_FOLDER:-$$(pwd)})
 DOCKER_INTERACTIVE := true
 VERSION_CSPELL ?= latest
+VERSION_DOCTOC ?= latest
 
 .PHONY: explain
 explain:
@@ -19,7 +20,7 @@ clean: ## Clean the repo
 	@echo "Cleaning the repo"
 	yarn cache clean
 	rm -fr node_modules
-	docker rmi $(shell docker images --format '{{.Repository}}:{{.Tag}}' | grep -e 'ghcr.io/streetsidesoftware/cspell') | true
+	docker rmi $(shell docker images --format '{{.Repository}}:{{.Tag}}' | grep -e 'ghcr.io/streetsidesoftware/cspell' -e 'peterdavehello/npm-doctoc') | true
 	@echo "✔ Done"
 
 ###
@@ -48,6 +49,14 @@ spell-check: check-interactive set-interactive ## Spell-checking
 		ghcr.io/streetsidesoftware/cspell:$(VERSION_CSPELL) \
 		"**/*.{js,json,md,txt}"
 	@echo "✔ Done"
+
+.PHONY: toc-markdown
+toc-markdown: ## Generate markdown table of contents
+	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
+		-v $(MOUNT_PATH):/workdir \
+		-w /workdir \
+		peterdavehello/npm-doctoc:$(VERSION_DOCTOC) \
+		doctoc --title "## Table of Contents" README.md
 
 ###
 # Docker flags configuration
