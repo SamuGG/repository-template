@@ -6,6 +6,7 @@ MOUNT_PATH := $(shell echo $${LOCAL_WORKSPACE_FOLDER:-$$(pwd)})
 DOCKER_INTERACTIVE := true
 VERSION_CSPELL ?= latest
 VERSION_DOCTOC ?= latest
+VERSION_MARKDOWNLINT ?= latest
 
 .PHONY: explain
 explain:
@@ -20,7 +21,7 @@ clean: ## Clean the repo
 	@echo "Cleaning the repo"
 	yarn cache clean
 	rm -fr node_modules
-	docker rmi $(shell docker images --format '{{.Repository}}:{{.Tag}}' | grep -e 'ghcr.io/streetsidesoftware/cspell' -e 'peterdavehello/npm-doctoc') | true
+	docker rmi $(shell docker images --format '{{.Repository}}:{{.Tag}}' | grep -e 'ghcr.io/streetsidesoftware/cspell' -e 'peterdavehello/npm-doctoc' -e 'davidanson/markdownlint-cli2') | true
 	@echo "✔ Done"
 
 ###
@@ -57,6 +58,15 @@ toc-markdown: ## Generate markdown table of contents
 		-w /workdir \
 		peterdavehello/npm-doctoc:$(VERSION_DOCTOC) \
 		doctoc --title "## Table of Contents" README.md
+
+.PHONY: lint-markdown
+lint-markdown: check-interactive set-interactive ## Lint markdown files
+	@echo "- Linting markdown files..."
+	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
+		-v $(MOUNT_PATH):/workdir \
+		--entrypoint="markdownlint-cli2-config" \
+		davidanson/markdownlint-cli2:$(VERSION_MARKDOWNLINT)
+	@echo "✔ Done"
 
 ###
 # Docker flags configuration
