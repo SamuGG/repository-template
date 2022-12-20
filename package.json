@@ -8,5 +8,11 @@
   "repository": {
     "type": "git",
     "url": "github:user/repo"
+  },
+  "scripts": {
+    "postinstall": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^8.0.2"
   }
 }
