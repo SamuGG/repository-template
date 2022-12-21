@@ -5,7 +5,8 @@
     "commitlint",
     "devcontainer",
     "doctoc",
-    "conventionalcommits"
+    "conventionalcommits",
+    "samu"
   ],
   "flagWords": [
     "hte"
