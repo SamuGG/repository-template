@@ -31,7 +31,7 @@ git config --global --type bool mergetool.code.keepTemporaries false
 git config --global --type bool rebase.updateRefs true
 
 # safe
-git config --global --add safe.directory *
+git config --global --add safe.directory '*'
 
 # status
 git config --global --type bool status.submoduleSummary true
