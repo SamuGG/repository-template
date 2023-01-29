@@ -29,7 +29,7 @@
     "ghcr.io/devcontainers/features/docker-from-docker:1": {}
   },
   "image": "mcr.microsoft.com/devcontainers/dotnet",
-  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install --lts",
+  "postCreateCommand": ". ${NVM_DIR}/nvm.sh && nvm install --lts && bash template-repo-scripts/postCreateCommand.sh",
   "remoteEnv": {
     "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
   }
