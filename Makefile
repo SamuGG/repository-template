@@ -18,7 +18,7 @@ explain:
 
 .PHONY: clean
 clean: ## Clean the repo
-	@echo "Cleaning the repo"
+	@echo "💣 Cleaning the repository..."
 	yarn cache clean
 	rm -fr node_modules
 	dotnet clean
@@ -34,7 +34,7 @@ install: install-deps
 
 .PHONY: install-deps
 install-deps: ## Install Node dependencies
-	@echo "Installing Node dependencies"
+	@echo "📡 Installing Node dependencies..."
 	corepack enable
 	yarn install
 	@echo "✔ Done"
@@ -69,7 +69,7 @@ run-tests: ## Runs test projects
 
 .PHONY: spell-check
 spell-check: check-interactive set-interactive ## Spell-checking
-	@echo "- Spell-checking..."
+	@echo "💬 Checking spelling..."
 	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
 		-v $(MOUNT_PATH):/workdir \
 		ghcr.io/streetsidesoftware/cspell:$(VERSION_CSPELL) \
@@ -78,15 +78,17 @@ spell-check: check-interactive set-interactive ## Spell-checking
 
 .PHONY: toc-markdown
 toc-markdown: ## Generate markdown table of contents
+	@echo "📝 Regenerating markdown table of contents..."
 	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
 		-v $(MOUNT_PATH):/workdir \
 		-w /workdir \
 		peterdavehello/npm-doctoc:$(VERSION_DOCTOC) \
-		doctoc --title "## Table of Contents" README.md
+		doctoc --title "## Table of Contents ##" README.md
+	@echo "✔ Done"
 
 .PHONY: lint-markdown
 lint-markdown: check-interactive set-interactive ## Lint markdown files
-	@echo "- Linting markdown files..."
+	@echo "💂‍♂️ Linting markdown files..."
 	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
 		-v $(MOUNT_PATH):/workdir \
 		--entrypoint="markdownlint-cli2-config" \
@@ -99,7 +101,9 @@ lint-markdown: check-interactive set-interactive ## Lint markdown files
 
 .PHONY: create-release
 create-release: generate-changelog ## Generate changelog and create release
+	@echo "🔖 Generating new release..."
 	yarn semantic-release
+	@echo "✔ Done"
 
 .PHONY: generate-changelog
 generate-changelog: ## Generate changelog
