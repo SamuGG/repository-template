@@ -31,8 +31,9 @@ Open the project folder with VS Code, and accept prompt to re-open the folder in
 Once the Dev Container starts with your new repository, open **VS Code terminal** and run the following scripts to configure Git in the container:
 
 ```sh
-template-repo-scripts/configure-global-gitconfig.sh
-template-repo-scripts/generate-global-gitignore.sh
+bash template-repo-scripts/configure-global-gitconfig.sh
+
+bash template-repo-scripts/generate-global-gitignore.sh
 ```
 
 Set-up your Git user:

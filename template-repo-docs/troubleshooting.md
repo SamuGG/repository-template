@@ -1,5 +1,17 @@
 # 💪 Troubleshooting
 
+## Git
+
+Some Git configuration should run by [postCreateCommand](../template-repo-scripts/postCreateCommand.sh) script after building the Dev Container.
+
+If you get git errors about the repository location not being trusted or anything else then, you can run the scripts manually:
+
+```sh
+bash template-repo-scripts/configure-global-gitconfig.sh
+
+bash template-repo-scripts/generate-global-gitignore.sh
+```
+
 ## Husky
 
 When Husky errors happen, you can try re-installing it using the Makefile target:
