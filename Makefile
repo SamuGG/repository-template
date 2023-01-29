@@ -38,6 +38,14 @@ install-deps: ## Install Node dependencies
 	yarn install
 	@echo "✔ Done"
 
+.PHONY: reinstall-husky
+reinstall-husky: ## Reinstall Husky
+	@echo "💣 Reinstalling Husky..."
+	sh template-repo-scripts/uninstall-husky.sh && \
+	sh template-repo-scripts/install-husky.sh && \
+	sh template-repo-scripts/reset-husky-hooks.sh
+	@echo "✔ Done"
+
 ###
 ##@ Validation
 ###
