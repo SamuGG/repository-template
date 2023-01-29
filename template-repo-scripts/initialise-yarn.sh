@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/usr/bin/env bash
 yarn init --private
 
 npm pkg set \

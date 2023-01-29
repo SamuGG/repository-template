@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/usr/bin/env bash
 yarn add lint-staged --dev
 
 yarn husky add .husky/pre-commit "yarn lint-staged --concurrent false"

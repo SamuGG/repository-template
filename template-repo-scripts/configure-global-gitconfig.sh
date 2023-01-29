@@ -1,4 +1,16 @@
-# !/bin/sh
+#!/usr/bin/env bash
+
+# alias
+git config --global alias.aliases "!git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'"
+git config --global alias.branches 'branch -a'
+git config --global alias.delete-local-merged "!git fetch && git branch --merged | egrep -v 'main' | xargs git branch -d"
+git config --global alias.ec 'commit --allow-empty -m'
+git config --global alias.logg 'log --graph --decorate --oneline --date=relative --all'
+git config --global alias.remotes 'remote -v'
+git config --global alias.review-local '!git logg @{push}..'
+git config --global alias.tags 'tag -l'
+git config --global alias.uncommit 'reset --soft HEAD~1'
+git config --global alias.untrack 'rm --cache --'
 
 # core
 git config --global core.autocrlf input
@@ -46,14 +58,3 @@ git config --global --add versionsort.prereleaseSuffix "-rc"
 git config --global --add versionsort.prereleaseSuffix ".beta"
 git config --global --add versionsort.prereleaseSuffix ".pre"
 git config --global --add versionsort.prereleaseSuffix ".rc"
-
-# alias
-git config --global alias.aliases "!git config --get-regexp alias | sed -re 's/alias\\.(\\S*)\\s(.*)$/\\1 = \\2/g'"
-git config --global alias.branches 'branch -a'
-git config --global alias.delete-local-merged "!git fetch && git branch --merged | egrep -v 'main' | xargs git branch -d"
-git config --global alias.logg 'log --graph --decorate --oneline --date=relative --all'
-git config --global alias.remotes 'remote -v'
-git config --global alias.review-local '!git logg @{push}..'
-git config --global alias.tags 'tag -l'
-git config --global alias.uncommit 'reset --soft HEAD~1'
-git config --global alias.untrack 'rm --cache --'

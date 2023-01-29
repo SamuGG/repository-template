@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/usr/bin/env bash
 yarn add auto-changelog --dev
 
 npm pkg set scripts.version="auto-changelog --package && git add CHANGELOG.md"

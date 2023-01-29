@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/usr/bin/env bash
 echo "LICENSE" > .markdownlintignore
 
 cat <<EOF > .markdownlint-cli2.jsonc

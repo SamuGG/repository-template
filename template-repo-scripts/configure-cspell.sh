@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/usr/bin/env bash
 cat <<EOF > cspell.json
 {
   "version": "0.2",

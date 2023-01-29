@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/usr/bin/env bash
 GITIGNORE_FILE="$HOME/.gitignore"
 truncate -s 0 $GITIGNORE_FILE
 
@@ -14,8 +14,8 @@ truncate -s 0 $GITIGNORE_FILE
 # - append a blank line at the end
 # - append result of all above operations to local gitignore file
 
-global_gitignores=( Linux macOS Windows )
-for i in "${global_gitignores[@]}"; do
+GLOBAL_FILES=(Linux macOS Windows)
+for i in "${GLOBAL_FILES[@]}"; do
     GITIGNORE_URL="https://github.com/github/gitignore/raw/main/Global/$i.gitignore"
     wget -q -l1 -O - $GITIGNORE_URL | sed -e 's:#.*$::g' -e '/^[[:blank:]]*$/ d' | sort | cat <(echo "# $GITIGNORE_URL") - <(echo "") >> $GITIGNORE_FILE
 done

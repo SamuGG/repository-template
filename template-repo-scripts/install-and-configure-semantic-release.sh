@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/usr/bin/env bash
 yarn add semantic-release --dev
 yarn add @semantic-release/changelog --dev
 yarn add @semantic-release/git --dev

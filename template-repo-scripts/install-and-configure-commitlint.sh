@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/usr/bin/env bash
 yarn add @commitlint/cli --dev
 yarn add @commitlint/config-conventional --dev
 yarn add conventional-changelog-conventionalcommits --dev
