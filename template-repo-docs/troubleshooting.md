@@ -1,5 +1,13 @@
 # 💪 Troubleshooting
 
+## Husky
+
+When Husky errors happen, you can try re-installing it using the Makefile target:
+
+```sh
+make reinstall-husky
+```
+
 ## Lint-Staged
 
 ### Task concurrency

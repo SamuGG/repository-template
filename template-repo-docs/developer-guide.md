@@ -40,6 +40,8 @@ To remove a hook, delete its file:
 rm -f .husky/pre-commit
 ```
 
+Husky updates the repository git configuration. Weh you run `cat .git/config` you should see `hooksPath = .husky`
+
 ## Linting Staged Changes
 
 Let's make sure that any code submitted to the repository is properly linted.
@@ -76,3 +78,9 @@ The configuration is saved in [commitlint.config.js](commitlint.config.js)
 ## Cloud Providers
 
 No cloud providers CLI or SDK are included in this repository. You may install them on your own and add any [Makefile targets](makefile-targets.md) for your needs.
+
+## Dotnet Projects
+
+`.sln` Solution files are not required since the repository already includes [Microsoft.Build.Traversal](https://github.com/microsoft/MSBuildSdks/tree/main/src/Traversal) to find all project files.
+
+See [dirs.proj](../dirs.proj)
