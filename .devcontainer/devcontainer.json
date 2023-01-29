@@ -10,9 +10,6 @@
         "ms-dotnettools.csharp"
       ],
       "settings": {
-        "editor.codeActionsOnSave": {
-          "source.fixAll": true
-        },
         "editor.formatOnSave": true,
         "files.exclude": {
           "**/bin": true,
