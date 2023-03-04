@@ -14,14 +14,14 @@
     "version": "auto-changelog --package && git add CHANGELOG.md"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.4.2",
-    "@commitlint/config-conventional": "^17.4.2",
+    "@commitlint/cli": "^17.4.4",
+    "@commitlint/config-conventional": "^17.4.4",
     "@semantic-release/changelog": "^6.0.2",
     "@semantic-release/git": "^10.0.1",
     "auto-changelog": "^2.4.0",
     "conventional-changelog-conventionalcommits": "^5.0.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.0",
-    "semantic-release": "^20.1.0"
+    "lint-staged": "^13.1.2",
+    "semantic-release": "^20.1.1"
   }
 }
