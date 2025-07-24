@@ -1,0 +1,8 @@
+tap "hashicorp/tap"
+brew "awscli"
+brew "awscli-local"
+brew "aws-sam-cli"
+brew "jq"
+brew "localstack/tap/localstack-cli"
+brew "node"
+brew "hashicorp/tap/terraform"
