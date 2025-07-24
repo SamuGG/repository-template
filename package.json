@@ -1,8 +1,8 @@
 {
-  "name": "code-project-template",
+  "name": "repository-template",
   "packageManager": "yarn@4.9.2",
   "private": true,
-  "description": "Custom development automation toolset",
+  "description": "Custom repository template",
   "version": "0.0.0",
   "license": "ISC",
   "repository": {
