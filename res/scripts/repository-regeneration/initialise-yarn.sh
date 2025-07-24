@@ -2,7 +2,7 @@
 yarn init --private
 
 npm pkg set \
-  description='Custom development automation toolset' \
+  description='Custom repository template' \
   version='0.0.0' \
   license='ISC' \
   repository.type='git' \

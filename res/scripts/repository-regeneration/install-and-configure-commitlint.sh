@@ -3,12 +3,12 @@ yarn add @commitlint/cli --dev
 yarn add @commitlint/config-conventional --dev
 yarn add conventional-changelog-conventionalcommits --dev
 
-yarn husky add .husky/commit-msg "yarn commitlint --edit \$1"
+yarn husky add .husky/commit-msg "make lint-commit-msg GIT_COMMIT_EDITMSG_FILE=\$1"
 git add .husky/commit-msg
 
 # https://commitlint.js.org/
 
-cat <<EOF > commitlint.config.js
+cat <<EOF > .config/commitlint.config.js
 module.exports = {
   parserPreset: "conventional-changelog-conventionalcommits",
   rules: {
