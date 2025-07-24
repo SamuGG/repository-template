@@ -10,7 +10,7 @@
     "url": "github:user/repo"
   },
   "scripts": {
-    "postinstall": "husky install",
+    "postinstall": "husky",
     "version": "auto-changelog --package && git add CHANGELOG.md"
   },
   "devDependencies": {
