@@ -1,0 +1,26 @@
+{
+  "version": "0.2",
+  "language": "en-GB",
+  "words": [
+    "analyzer",
+    "linters"
+  ],
+  "flagWords": [
+    "hte",
+    "wehn"
+  ],
+  "ignorePaths": [
+    "*.lock",
+    ".config",
+    ".husky",
+    "dep"
+  ],
+  "ignoreWords": [
+    "lintstagedrc",
+    "localstack",
+    "releaserc",
+    "samcli",
+    "tflint",
+    "versionrc"
+  ]
+}
