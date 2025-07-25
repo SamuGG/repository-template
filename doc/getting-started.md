@@ -21,7 +21,7 @@ git fetch --depth=1 --no-tags https://github.com/SamuGG/repository-template.git 
 # For SSH use below command instead:
 # git fetch --depth=1 --no-tags git@github.com:SamuGG/repository-template.git {branch}
 
-git reset --hard $(git commit-tree FETCH_HEAD^{tree} -m "chore: Initial commit" -m "Source repo https://github.com/SamuGG/repository-template.git")
+git reset --hard $(git commit-tree FETCH_HEAD^{tree} -m "chore: Initial commit" -m "Source repo github:SamuGG/repository-template")
 ```
 <!-- cSpell:enable -->
 
