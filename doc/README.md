@@ -1,7 +1,6 @@
-# 🌐 Template Repo Documentation
+# 🌐 Documentation
 
-- [Getting started](getting-started.md)
-- [Usage](usage.md)
 - [Developer guide](developer-guide.md)
+- [Getting started](getting-started.md)
 - [Configuration](configuration.md)
 - [Troubleshooting](troubleshooting.md)

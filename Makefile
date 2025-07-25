@@ -1,84 +1,177 @@
+MAKEFLAGS += -s
+
 ###
-# Docker
+# Variables
 ###
 
+PROJECT_NAME ?= $(lastword $(MAKEFILE_LIST))
 MOUNT_PATH := $(shell echo $${LOCAL_WORKSPACE_FOLDER:-$$(pwd)})
 DOCKER_INTERACTIVE := true
 VERSION_CSPELL ?= latest
 VERSION_DOCTOC ?= latest
 VERSION_MARKDOWNLINT ?= latest
+BACKEND_SRC_PATH ?=
+BACKEND_DIST_PATH ?=
+FRONTEND_SRC_PATH ?=
+FRONTEND_DIST_PATH ?=
+INFRASTRUCTURE_PATH ?=
 
 .PHONY: explain
 explain:
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m\033[0m\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
 ###
-##@ Cleanup
-###
-
-.PHONY: clean
-clean: ## Clean the repo
-	@echo "💣 Cleaning the repository..."
-	yarn cache clean
-	rm -fr node_modules
-	dotnet clean
-	docker rmi $(shell docker images --format '{{.Repository}}:{{.Tag}}' | grep -e 'ghcr.io/streetsidesoftware/cspell' -e 'peterdavehello/npm-doctoc' -e 'davidanson/markdownlint-cli2') | true
-	@echo "✔ Done"
-
-###
 ##@ Installation
 ###
 
 .PHONY: install
-install: install-deps
+install: init-pkg-manager install-deps ## Init package manager and install dependencies
+
+.PHONY: init-pkg-manager
+init-pkg-manager: ## Initialize package manager
+	corepack enable
+	yarn set version stable
 
 .PHONY: install-deps
-install-deps: ## Install Node dependencies
-	@echo "📡 Installing Node dependencies..."
-	corepack enable
+install-deps: ## Install dependencies
+	@echo "🔧 Installing dependencies..."
 	yarn install
 	@echo "✔ Done"
 
-.PHONY: reinstall-husky
-reinstall-husky: ## Reinstall Husky
-	@echo "💣 Reinstalling Husky..."
-	sh template-repo-scripts/uninstall-husky.sh && \
-	sh template-repo-scripts/install-husky.sh && \
-	sh template-repo-scripts/reset-husky-hooks.sh
+###
+##@ Cleanup
+###
+
+.PHONY: clean
+clean: clean-deps clean-containers clean-build ## Clean the repo
+
+.PHONY: clean-deps
+clean-deps: ## Clean dependencies
+	@echo "🗑️ Cleaning dependencies..."
+	yarn cache clean
+	rm -fr node_modules
 	@echo "✔ Done"
 
-###
-##@ Build
-###
+.PHONY: clean-containers
+clean-containers: stop-emulators clean-tf-containers clean-awscli-containers ## Clean Docker containers
+	@echo "🗑️ Cleaning Docker containers..."
+	docker rmi $(shell \
+		docker images --format '{{.Repository}}:{{.Tag}}' | grep \
+		-e 'ghcr.io/streetsidesoftware/cspell' \
+		-e 'peterdavehello/npm-doctoc' \
+		-e 'davidanson/markdownlint-cli2') | \
+	true
+	@echo "✔ Done"
 
-.PHONY: build
-build: ## Builds all projects
-	dotnet build
+.PHONY: clean-tf-containers
+clean-tf-containers: ## Clean Terraform containers
+	docker rmi $(shell \
+		docker images --format '{{.Repository}}:{{.Tag}}' | grep \
+		-e 'ghcr.io/terraform-linters/tflint' \
+		-e 'bridgecrew/checkov') | \
+	true
 
-###
-##@ Test
-###
+.PHONY: clean-awscli-containers
+clean-awscli-containers: ## Clean AWS CLI containers
+	docker rmi $(shell \
+		docker images --format '{{.Repository}}:{{.Tag}}' | grep \
+		-e 'public.ecr.aws/sam/build-nodejs22.x' \
+		-e 'public.ecr.aws/lambda/nodejs' \
+		-e 'localstack/localstack') | \
+	true
 
-.PHONY: run-tests
-run-tests: ## Runs test projects
-	dotnet test
+.PHONY: clean-build
+clean-build: ## Clean build artifacts
+	@echo "🗑️ Cleaning build artifacts..."
+# Uncomment after setting path variables
+# 	rm -fr $(BACKEND_DIST_PATH)/
+# 	rm -fr ${FRONTEND_DIST_PATH}/
+	@echo "✔ Done"
 
 ###
 ##@ Validation
 ###
 
-.PHONY: spell-check
-spell-check: check-interactive set-interactive ## Spell-checking
-	@echo "💬 Checking spelling..."
+.PHONY: check-spelling
+check-spelling: check-interactive set-interactive ## Check spelling in text files
+	@echo "💬 Spell-checking..."
 	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
-		-v $(MOUNT_PATH):/workdir \
+		--volume $(MOUNT_PATH):/workdir:ro \
 		ghcr.io/streetsidesoftware/cspell:$(VERSION_CSPELL) \
-		"**/*.{js,json,md,txt}"
+		--config .config/cspell.json \
+		--no-must-find-files \
+		--gitignore \
+		"**/*.{md,markdown,txt}"
 	@echo "✔ Done"
 
-.PHONY: toc-markdown
-toc-markdown: ## Generate markdown table of contents
-	@echo "📝 Regenerating markdown table of contents..."
+.PHONY: lint-markdown
+lint-markdown: check-interactive set-interactive ## Lint markdown files
+	@echo "🚨 Linting markdown files..."
+	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
+		--volume $(MOUNT_PATH):/workdir:ro \
+		davidanson/markdownlint-cli2:$(VERSION_MARKDOWNLINT) \
+		--config .config/.markdownlint-cli2.jsonc
+	@echo "✔ Done"
+
+.PHONY: lint-commit-msg
+lint-commit-msg: ## Lint commit message
+	@echo "🚨 Linting commit message..."
+	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
+		--volume $(MOUNT_PATH):/workdir:ro \
+		ghcr.io/streetsidesoftware/cspell:$(VERSION_CSPELL) \
+		--config .config/cspell.json \
+		--no-must-find-files \
+		--no-progress \
+		--no-summary \
+		--quiet \
+		--fail-fast \
+		--files \
+		$(GIT_COMMIT_EDITMSG_FILE) \
+	&& yarn commitlint \
+		--config .config/commitlint.config.js \
+		--edit $(GIT_COMMIT_EDITMSG_FILE)
+	@echo "✔ Done"
+
+.PHONY: lint-js
+lint-js: # Lint Javascript
+	yarn standard $(FRONTEND_SRC_PATH)
+
+.PHONY: lint-terraform
+lint-terraform: check-interactive set-interactive ## Lint terraform files
+	@echo "🚨 Linting terraform files..."
+	terraform -chdir=$(INFRASTRUCTURE_PATH) fmt -list=false -recursive \
+	&& terraform -chdir=$(INFRASTRUCTURE_PATH) validate -no-tests \
+	&& docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
+		--volume $(MOUNT_PATH)/$(INFRASTRUCTURE_PATH):/data:ro \
+		--env TFLINT_CONFIG_FILE=/data/.tflint.hcl \
+		--entrypoint=/bin/sh \
+		ghcr.io/terraform-linters/tflint:$(VERSION_TFLINT) -c "tflint --chdir=/data --init; tflint --chdir=/data" \
+	&& docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
+		--name checkov \
+		--volume $(MOUNT_PATH)/$(INFRASTRUCTURE_PATH):/tf:ro \
+		--volume $(MOUNT_PATH)/.config:/app-config:ro \
+		bridgecrew/checkov \
+		--directory /tf \
+		--config-file /app-config/checkov.yaml
+	@echo "✔ Done"
+
+###
+##@ Release Management
+###
+
+.PHONY: release
+release: changelog ## Generate changelog and create release
+	@echo "🎁 Generating new release..."
+	yarn semantic-release
+	@echo "✔ Done"
+
+.PHONY: changelog
+changelog: ## Generate changelog
+	yarn run version
+
+.PHONY: toc
+toc: ## Generate markdown table of contents
+	@echo "🔗 Generating TOC..."
 	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
 		-v $(MOUNT_PATH):/workdir \
 		-w /workdir \
@@ -86,34 +179,53 @@ toc-markdown: ## Generate markdown table of contents
 		doctoc --title "## Table of Contents ##" README.md
 	@echo "✔ Done"
 
-.PHONY: lint-markdown
-lint-markdown: check-interactive set-interactive ## Lint markdown files
-	@echo "💂‍♂️ Linting markdown files..."
-	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
-		-v $(MOUNT_PATH):/workdir \
-		--entrypoint="markdownlint-cli2-config" \
-		davidanson/markdownlint-cli2:$(VERSION_MARKDOWNLINT)
-	@echo "✔ Done"
-
 ###
-##@ Release Management
+##@ Build
 ###
 
-.PHONY: create-release
-create-release: generate-changelog ## Generate changelog and create release
-	@echo "🔖 Generating new release..."
-	yarn semantic-release
+.PHONY: build
+build: build-frontend build-backend ## Build frontend and backend
+
+.PHONY: build-frontend
+build-frontend: lint-js ## Build frontend
+# Expects FRONTEND_SRC_PATH/package.json to have a build script; e.g. "build": "vite build"
+	yarn --cwd $(FRONTEND_SRC_PATH) build
+
+.PHONY: build-backend
+build-backend: ## Build backend
+# Expects dirs.proj to find .csproj files
+	dotnet build
+
+###
+##@ Test
+###
+
+.PHONY: test
+test: ## Run tests
+# Expects dirs.proj to find .csproj files
+	dotnet test
+
+###
+##@ Emulation
+###
+
+.PHONY: start-emulators
+start-emulators: ## Start local emulators
+	@echo "▶️ Starting local emulators..."
+	docker-compose --project-directory .config --project-name $(PROJECT_NAME) up --detach
 	@echo "✔ Done"
 
-.PHONY: generate-changelog
-generate-changelog: ## Generate changelog
-	yarn run version
+.PHONY: stop-emulators
+stop-emulators: ## Stop local emulators
+	@echo "⏏ Stopping local emulators..."
+	docker-compose --project-directory .config --project-name $(PROJECT_NAME) down --volumes
+	@echo "✔ Done"
 
 ###
 # Docker flags configuration
-# This allows us to see the results from container executables (like cspell) 
-# when we run it manually, and switch the interactive mode off when running 
-# them from husky.
+# This allows us to see the results from container executables (like cspell)
+# when we run them manually, and switch the interactive mode off
+# when running them from Husky git hooks.
 ###
 
 .PHONY: check-interactive

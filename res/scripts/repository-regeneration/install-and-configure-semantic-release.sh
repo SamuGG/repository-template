@@ -5,13 +5,13 @@ yarn add @semantic-release/git --dev
 
 # https://semantic-release.gitbook.io/semantic-release/
 
-cat <<EOF > .releaserc
+cat <<EOF > .config/.releaserc
 {
   "branches": [ "main", "master" ],
   "ci": false,
   "plugins": [
     [ "@semantic-release/commit-analyzer", { "preset": "conventionalcommits" } ],
-    [ 
+    [
       "@semantic-release/release-notes-generator",
       {
         "preset": "conventionalcommits",
@@ -45,7 +45,7 @@ cat <<EOF > .releaserc
 }
 EOF
 
-cat <<EOF > .versionrc
+cat <<EOF > .config/.versionrc
 {
   "types": [
     { "type": "feat", "section": "Features" },
