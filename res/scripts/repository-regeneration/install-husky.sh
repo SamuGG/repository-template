@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-yarn add husky --dev
-npm pkg set scripts.postinstall="husky"
+bun add husky
+bun pm pkg set scripts.prepare="husky"

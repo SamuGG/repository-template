@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-yarn add semantic-release --dev
-yarn add @semantic-release/changelog --dev
-yarn add @semantic-release/git --dev
+bun add semantic-release
+bun add @semantic-release/changelog
+bun add @semantic-release/git
 
 # https://semantic-release.gitbook.io/semantic-release/
 

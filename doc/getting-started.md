@@ -3,8 +3,8 @@
 ## Requirements
 
 - [Docker](https://www.docker.com/products/docker-desktop/)
-- [Nodejs](https://nodejs.org/)
 - [Makefile](https://makefiletutorial.com) support
+- [Bun](https://bun.sh)
 
 ## 1. Start A New Repository
 
@@ -30,7 +30,7 @@ git reset --hard $(git commit-tree FETCH_HEAD^{tree} -m "chore: Initial commit" 
 
 ## 2. Install Local Tools
 
-Local tools are installed as Nodejs packages with:
+Local tools are installed as packages with:
 
 ```sh
 make install

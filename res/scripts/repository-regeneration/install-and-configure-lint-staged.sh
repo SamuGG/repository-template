@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-yarn add lint-staged --dev
+bun add lint-staged
 
-yarn husky add .husky/pre-commit "yarn lint-staged --config .config/.lintstagedrc"
+echo "bun lint-staged --config .config/.lintstagedrc" > .husky/pre-commit
 git add .husky/pre-commit
 
 # https://github.com/okonet/lint-staged

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-yarn add @commitlint/cli --dev
-yarn add @commitlint/config-conventional --dev
-yarn add conventional-changelog-conventionalcommits --dev
+bun add @commitlint/cli
+bun add @commitlint/config-conventional
+bun add conventional-changelog-conventionalcommits
 
-yarn husky add .husky/commit-msg "make lint-commit-msg GIT_COMMIT_EDITMSG_FILE=\$1"
+echo "make lint-commit-msg GIT_COMMIT_EDITMSG_FILE=\$1" > .husky/commit-msg
 git add .husky/commit-msg
 
 # https://commitlint.js.org/

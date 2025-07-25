@@ -1,1 +1,1 @@
-yarn lint-staged --config .config/.lintstagedrc
+bun lint-staged --config .config/.lintstagedrc

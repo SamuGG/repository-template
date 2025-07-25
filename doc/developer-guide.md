@@ -7,13 +7,12 @@
   - `C# Dev Kit` [extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
   - `Terraform` [extension](https://marketplace.visualstudio.com/items?itemName=HashiCorp.terraform)
 
-- [![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/) [![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=for-the-badge&logo=yarn&logoColor=white)](https://v3.yarnpkg.com/)
-
 - [![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
 
   - [Husky](https://typicode.github.io/husky/) for git hooks
 
 - [![Bash Script](https://img.shields.io/badge/bash_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)](https://www.gnu.org/software/bash/)
+- [![Bun](https://img.shields.io/badge/Bun-%23000000.svg?style=for-the-badge&logo=bun&logoColor=white)](https://bun.com/)
 - [![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)](https://dotnet.microsoft.com/)
 - [![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)](https://developer.hashicorp.com/terraform)
 - [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/products/docker-desktop/)
@@ -40,13 +39,13 @@ Catch mistakes, typos or policy violations by running custom scripts before or a
 
 [Husky](https://typicode.github.io/husky/) is a popular JavaScript package that allows us to add git hooks to our repository.
 
-- To create a hook run:
+- To create a hook run, create a file with the command to run:
 
     ```sh
-    yarn husky add pre-commit "yarn lint-staged"
+    echo "bun lint-staged" > .husky/pre-commit
     ```
 
-    Where `pre-commit` is the name of the hook; and `yarn lint-staged` is the command we want to run.
+    Where `pre-commit` is the name of the hook; and `bun lint-staged` is the command we want to run.
 
 - To remove a hook, simply delete the file
 
@@ -135,14 +134,14 @@ We'll use [@commitlint/cli](https://github.com/conventional-changelog/commitlint
 To upgrade all outdated tools installed as dependencies:
 
 ```sh
-yarn upgrade-interactive
+bun update --interactive
 ```
 
 To upgrade one package in particular:
 
 ```sh
-yarn up package-name
-yarn up package-name@1.2.3
+bun update package-name
+bun update package-name@1.2.3
 ```
 
 **Docker** images used in this repository use the `latest` label by default. To change them, set the appropriate constant variable in the [Makefile](../Makefile).

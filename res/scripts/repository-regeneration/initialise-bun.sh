@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-yarn init --private
+bun init --private
 
-npm pkg set \
+bun pm pkg set \
   description='Custom repository template' \
   version='0.0.0' \
   license='ISC' \

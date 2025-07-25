@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-yarn add auto-changelog --dev
+bun add auto-changelog
 
-npm pkg set scripts.version="auto-changelog --package && git add CHANGELOG.md"
+bun pm pkg set scripts.version="auto-changelog --package && git add CHANGELOG.md"
 
 # https://github.com/CookPete/auto-changelog
 

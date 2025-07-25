@@ -25,17 +25,12 @@ explain:
 ###
 
 .PHONY: install
-install: init-pkg-manager install-deps ## Init package manager and install dependencies
-
-.PHONY: init-pkg-manager
-init-pkg-manager: ## Initialize package manager
-	corepack enable
-	yarn set version stable
+install: install-deps ## Install dependencies
 
 .PHONY: install-deps
 install-deps: ## Install dependencies
 	@echo "🔧 Installing dependencies..."
-	yarn install
+	bun install
 	@echo "✔ Done"
 
 ###
@@ -48,7 +43,7 @@ clean: clean-deps clean-containers clean-build ## Clean the repo
 .PHONY: clean-deps
 clean-deps: ## Clean dependencies
 	@echo "🗑️ Cleaning dependencies..."
-	yarn cache clean
+	bun pm cache rm
 	rm -fr node_modules
 	@echo "✔ Done"
 
@@ -127,14 +122,14 @@ lint-commit-msg: ## Lint commit message
 		--fail-fast \
 		--files \
 		$(GIT_COMMIT_EDITMSG_FILE) \
-	&& yarn commitlint \
+	&& bun commitlint \
 		--config .config/commitlint.config.js \
 		--edit $(GIT_COMMIT_EDITMSG_FILE)
 	@echo "✔ Done"
 
 .PHONY: lint-js
 lint-js: # Lint Javascript
-	yarn standard $(FRONTEND_SRC_PATH)
+	bun standard $(FRONTEND_SRC_PATH)
 
 .PHONY: lint-terraform
 lint-terraform: check-interactive set-interactive ## Lint terraform files
@@ -162,12 +157,12 @@ lint-terraform: check-interactive set-interactive ## Lint terraform files
 .PHONY: release
 release: changelog ## Generate changelog and create release
 	@echo "🎁 Generating new release..."
-	yarn semantic-release
+	bun semantic-release
 	@echo "✔ Done"
 
 .PHONY: changelog
 changelog: ## Generate changelog
-	yarn run version
+	bun version
 
 .PHONY: toc
 toc: ## Generate markdown table of contents
@@ -189,7 +184,7 @@ build: build-frontend build-backend ## Build frontend and backend
 .PHONY: build-frontend
 build-frontend: lint-js ## Build frontend
 # Expects FRONTEND_SRC_PATH/package.json to have a build script; e.g. "build": "vite build"
-	yarn --cwd $(FRONTEND_SRC_PATH) build
+	bun --cwd $(FRONTEND_SRC_PATH) build
 
 .PHONY: build-backend
 build-backend: ## Build backend

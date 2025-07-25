@@ -117,7 +117,7 @@ Based on this sample configuration, it will:
 
 ⚠️ **IMPORTANT**: You need to have at least one release branch specified; and this branch needs to exist in the remote repository.
 
-The remote repository must be configured in `package.json`. This can be done running `npm pkg set repository.url='github:user/repo'`
+The remote repository must be configured in `package.json`. This can be done running `bun pm pkg set repository.url='github:user/repo'`
 
 ---
 

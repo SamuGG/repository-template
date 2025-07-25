@@ -1,6 +1,5 @@
 {
   "name": "repository-template",
-  "packageManager": "yarn@4.9.2",
   "private": true,
   "description": "Custom repository template",
   "version": "0.0.0",
@@ -10,19 +9,19 @@
     "url": "github:user/repo"
   },
   "scripts": {
-    "postinstall": "husky",
+    "prepare": "husky",
     "version": "auto-changelog --package && git add CHANGELOG.md"
   },
   "devDependencies": {
+    "husky": "*",
     "@commitlint/cli": "*",
     "@commitlint/config-conventional": "*",
+    "semantic-release": "*",
     "@semantic-release/changelog": "*",
     "@semantic-release/git": "*",
-    "auto-changelog": "*",
     "conventional-changelog-conventionalcommits": "*",
-    "husky": "*",
+    "auto-changelog": "*",
     "lint-staged": "*",
-    "semantic-release": "*",
     "standard": "*"
   }
 }

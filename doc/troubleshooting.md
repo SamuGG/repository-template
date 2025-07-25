@@ -1,32 +1,5 @@
 # 💪 Troubleshooting
 
-## Nodejs
-
-### Nodejs And Yarn Upgrades
-
-After upgrading Nodejs or Yarn, you may need to install the dependencies again:
-
-```sh
-make install
-```
-
-### Yarn Debugging Mode
-
-To debug yarn commands and send the output to a file for later inspection, run:
-
-```sh
-yarn lint-staged -d > lint-staged-debug.txt 2>&1
-```
-
-- `-d` : Tells yarn to output debug information
-- `> lint-staged-debug.txt` : Redirects the stdout stream to the lint-staged-debug.txt file. &gt; is shorthand for 1&gt;
-- `2>&1` : This uses the &amp;&gt; redirect instruction. This instruction allows you to tell the shell to make one stream got to the same destination as another stream. In this case, we’re saying “redirect stream 2, stderr, to the same destination that stream 1, stdout, is being redirected to.”
-
-### Other Errors
-
-- Check that [.gitignore](../.gitignore) is not including or excluding external packages by mistake.
-Folders `.yarn/cache` and `node_modules` are excluded in this repo.
-
 ## Lint-Staged
 
 ### Task concurrency
