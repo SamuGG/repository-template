@@ -6,6 +6,24 @@
 
 When installed, it updates git settings with `hooksPath = .husky`
 
+- To create a `pre-commit` hook:
+
+    ```sh
+    echo "bun lint-staged" > .husky/pre-commit
+    ```
+
+    Where `bun lint-staged` is the command to run before git commit
+
+- To remove a hook, delete the file
+
+    ```sh
+    rm -f .husky/pre-commit
+    ```
+
+- To change a hook, edit the file
+
+See the list of available git [hooks](https://git-scm.com/docs/githooks).
+
 ### lint-staged
 
 Edit [.lintstagedrc](../.config/.lintstagedrc) to configure your tasks.
@@ -71,18 +89,16 @@ Based on this sample configuration, it will:
 This tool runs the following [steps](https://github.com/semantic-release/semantic-release/blob/master/docs/usage/plugins.md#plugins), implemented by configurable [plugins](https://github.com/semantic-release/semantic-release/blob/master/docs/extending/plugins-list.md):
 
 - `verifyConditions`
-- Get last release
 - `analyzeCommits`
 - `verifyRelease`
 - `generateNotes`
-- Create Git tag
 - `prepare`
 - `publish`
 - `success` / `fail`
 
 To know more about plugins, read the [Plugin developer guide](https://github.com/semantic-release/semantic-release/blob/master/docs/developer-guide/plugin.md)
 
-Edit [.releaserc](../.config/.releaserc) to configure the release automation; i.e.:
+Edit [.releaserc](../.config/.releaserc) to configure the release automation; i.e.
 
 ```json
 {
@@ -155,3 +171,7 @@ With this configuration, it will:
 Edit [.auto-changelog](../.config/.auto-changelog) to configure how the changelog is generated.
 
 Edit [conventional.hbs](../res/templates/changelog/conventional.hbs) to customize the content.
+
+### LocalStack
+
+Edit [docker-compose.yml](../.config/docker-compose.yml) to configure environment variables, volumes and port numbers.
