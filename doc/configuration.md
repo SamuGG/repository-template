@@ -24,6 +24,12 @@ When installed, it updates git settings with `hooksPath = .husky`
 
 See the list of available git [hooks](https://git-scm.com/docs/githooks).
 
+### Bun
+
+Bun configuration file is [bunfig.toml](../bunfig.toml)
+
+See the [documentation](https://bun.com/docs/runtime/bunfig) to know more.
+
 ### lint-staged
 
 Edit [.lintstagedrc](../.config/.lintstagedrc) to configure your tasks.

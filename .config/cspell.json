@@ -16,6 +16,7 @@
     "dep"
   ],
   "ignoreWords": [
+    "bunfig",
     "lintstagedrc",
     "localstack",
     "releaserc",
