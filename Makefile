@@ -78,6 +78,7 @@ clean-awscli-containers: ## Clean AWS CLI containers
 .PHONY: clean-build
 clean-build: ## Clean build artifacts
 	@echo "🗑️ Cleaning build artifacts..."
+	dotnet clean --nologo
 # Uncomment after setting path variables
 # 	rm -fr $(BACKEND_DIST_PATH)/
 # 	rm -fr ${FRONTEND_DIST_PATH}/
