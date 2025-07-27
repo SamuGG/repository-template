@@ -9,9 +9,10 @@ node_modules/
 *.code-workspace
 .history/
 
-./**/bin
-./**/obj
+bin/
+obj/
 dist/
+out/
 
 .env
 **/.aws-sam/
