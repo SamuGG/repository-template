@@ -3,5 +3,7 @@
     "make check-spelling DOCKER_INTERACTIVE=false",
     "make lint-markdown DOCKER_INTERACTIVE=false"
   ],
-  "*.tf": "make lint-terraform DOCKER_INTERACTIVE=false"
+  "*.tf": "make lint-terraform DOCKER_INTERACTIVE=false",
+  "*cs": "make test-backend build-backend",
+  "*.{js,jsx,ts,tsx}": "make test-frontend build-frontend"
 }
