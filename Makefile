@@ -183,22 +183,30 @@ build: build-frontend build-backend ## Build frontend and backend
 
 .PHONY: build-frontend
 build-frontend: lint-js ## Build frontend
-# Expects FRONTEND_SRC_PATH/package.json to have a build script; e.g. "build": "vite build"
-	bun --cwd $(FRONTEND_SRC_PATH) build
+#	bun run --cwd=$(FRONTEND_SRC_PATH) --bun vite build
+	bun build --root . --outdir $(FRONTEND_DIST_PATH) --splitting --minify $(FRONTEND_SRC_PATH)/index.ts
 
 .PHONY: build-backend
 build-backend: ## Build backend
 # Expects dirs.proj to find .csproj files
-	dotnet build
+	dotnet build --nologo --configuration Release --output $(BACKEND_DIST_PATH) --version-sufix $(shell git rev-parse --short HEAD)
 
 ###
 ##@ Test
 ###
 
 .PHONY: test
-test: ## Run tests
-# Expects dirs.proj to find .csproj files
-	dotnet test
+test: test-frontend test-backend ## Run tests for frontend and backend
+
+.PHONY: test-frontend
+test-frontend: ## Run frontend tests
+# See https://bun.com/docs/test/discovery#changing-the-root-directory
+	bun test
+
+.PHONY: test-backend
+test-backend: ## Run backend tests
+# Expects dirs.proj to find .csproj files - Use MTP as opposed to VSTest
+	dotnet test --configuration Release
 
 ###
 ##@ Emulation
