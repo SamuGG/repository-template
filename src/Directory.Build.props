@@ -1,0 +1,23 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <PropertyGroup>
+    <_PackageReadmeFilePath Condition="Exists('$(MSBuildProjectDirectory)\readme.md')">$(MSBuildProjectDirectory)\Readme.md</_PackageReadmeFilePath>
+    <IsPackable>true</IsPackable>
+    <EnablePackageValidation>true</EnablePackageValidation>
+    <Deterministic>true</Deterministic>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageOutputPath>$(SolutionDir).nuget</PackageOutputPath>
+    <PackageProjectUrl>https://github.com/SamuGG/dotnet-project-name</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/SamuGG/dotnet-project-name</RepositoryUrl>
+    <PackageTags></PackageTags>
+    <!--<PackageIcon>package-icon.png</PackageIcon>-->
+    <PackageReadmeFile Condition="$(_PackageReadmeFilePath) != ''">Readme.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <!--<None Include="$(SolutionDir)\img\package-icon.png" Pack="true" PackagePath="" Visible="false"/>-->
+    <None Include="$(_PackageReadmeFilePath)" Pack="true" PackagePath="" Condition="$(_PackageReadmeFilePath) != ''" />
+    <PackageReference Include="DotNet.ReproducibleBuilds" PrivateAssets="All"/>
+  </ItemGroup>
+</Project>

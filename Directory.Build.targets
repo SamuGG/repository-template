@@ -1,0 +1,8 @@
+<Project>
+  <Target Name="RemoveObjAndBin" AfterTargets="Clean">
+    <!-- Remove obj folder -->
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)"/>
+    <!-- Remove bin folder -->
+    <RemoveDir Directories="$(BaseOutputPath)"/>
+  </Target>
+</Project>
