@@ -109,7 +109,7 @@ lint-markdown: check-interactive set-interactive ## Lint markdown files
 	@echo "✔ Done"
 
 .PHONY: lint-commit-msg
-lint-commit-msg: ## Lint commit message
+lint-commit-msg: check-interactive set-interactive ## Lint commit message
 	@echo "🚨 Linting commit message..."
 	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
 		--volume $(MOUNT_PATH):/workdir:ro \
@@ -165,7 +165,7 @@ changelog: ## Generate changelog
 	bun version
 
 .PHONY: toc
-toc: ## Generate markdown table of contents
+toc: check-interactive set-interactive ## Generate markdown table of contents
 	@echo "🔗 Generating TOC..."
 	docker run --rm $(DOCKER_INTERACTIVE_FLAGS) \
 		-v $(MOUNT_PATH):/workdir \

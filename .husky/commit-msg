@@ -1,1 +1,1 @@
-make lint-commit-msg GIT_COMMIT_EDITMSG_FILE=$1
+make lint-commit-msg GIT_COMMIT_EDITMSG_FILE=$1 DOCKER_INTERACTIVE=false
