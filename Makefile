@@ -194,6 +194,7 @@ build-frontend: lint-js ## Build a publishable version of the frontend
 
 .PHONY: build-backend
 build-backend: ## Build a publishable version of the backend
+	dotnet publish $(BACKEND_SRC_PATH) --nologo --configuration Release --version-suffix $(shell git rev-parse --short HEAD) --output $(BACKEND_DIST_PATH)
 
 ###
 ##@ Test
