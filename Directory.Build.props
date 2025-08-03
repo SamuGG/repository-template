@@ -16,5 +16,6 @@
     <AnalysisMode>recommended</AnalysisMode>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <TraversalSkipUnsupportedProjects>true</TraversalSkipUnsupportedProjects>
   </PropertyGroup>
 </Project>
