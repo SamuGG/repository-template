@@ -23,5 +23,6 @@
     "auto-changelog": "*",
     "lint-staged": "*",
     "standard": "*"
-  }
+  },
+  "workspaces": ["frontend/*"]
 }
