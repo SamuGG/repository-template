@@ -188,14 +188,12 @@ toc: check-interactive set-interactive ## Generate markdown table of contents
 build: build-frontend build-backend ## Build frontend and backend
 
 .PHONY: build-frontend
-build-frontend: lint-js ## Build frontend
+build-frontend: lint-js ## Build a publishable version of the frontend
 #	bun run --cwd=$(FRONTEND_SRC_PATH) --bun vite build
 	bun build --root . --outdir $(FRONTEND_DIST_PATH) --splitting --minify $(FRONTEND_SRC_PATH)/index.ts
 
 .PHONY: build-backend
-build-backend: ## Build backend
-# Expects dirs.proj to find .csproj files
-	dotnet build --nologo --configuration Release --output $(BACKEND_DIST_PATH) --version-sufix $(shell git rev-parse --short HEAD)
+build-backend: ## Build a publishable version of the backend
 
 ###
 ##@ Test
