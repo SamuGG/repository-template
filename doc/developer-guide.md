@@ -32,8 +32,9 @@
 - [dep/](../dep) - contains dependencies for the repository
 - [doc/](./) - contains documentation
 - [res/](../res) - contains resources such as scripts and templates
-- [src/](../src) - contains source code
-- [test/](../test) - contains testing code
+- [backend/](../backend/README.md) - contains your backend projects
+- [frontend/](../frontend/README.md) - contains your frontend project
+- [infrastructure](../infrastructure/README.md) - contains your infrastructure project
 
 ## Git hooks
 
