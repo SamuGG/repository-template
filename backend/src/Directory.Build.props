@@ -8,9 +8,9 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageOutputPath>$(SolutionDir).nuget</PackageOutputPath>
-    <PackageProjectUrl>https://github.com/SamuGG/dotnet-project-name</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/username/dotnet-project-name</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://github.com/SamuGG/dotnet-project-name</RepositoryUrl>
+    <RepositoryUrl>https://github.com/username/dotnet-project-name</RepositoryUrl>
     <PackageTags></PackageTags>
     <!--<PackageIcon>package-icon.png</PackageIcon>-->
     <PackageReadmeFile Condition="$(_PackageReadmeFilePath) != ''">Readme.md</PackageReadmeFile>

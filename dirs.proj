@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.Build.Traversal/4.1.82">
   <ItemGroup>
-    <ProjectReference Include=".\**\*.*proj" />
+    <ProjectReference Include=".\backend\src\**\*.*proj" />
+    <ProjectReference Include=".\backend\test\**\*.*proj" />
   </ItemGroup>
 </Project>
