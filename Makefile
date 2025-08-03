@@ -185,7 +185,7 @@ toc: check-interactive set-interactive ## Generate markdown table of contents
 ###
 
 .PHONY: build
-build: build-frontend build-backend ## Build frontend and backend
+build: build-backend build-frontend ## Build backend and frontend
 
 .PHONY: build-frontend
 build-frontend: lint-js ## Build a publishable version of the frontend
@@ -200,7 +200,7 @@ build-backend: ## Build a publishable version of the backend
 ###
 
 .PHONY: test
-test: test-frontend test-backend ## Run tests for frontend and backend
+test: test-backend test-frontend ## Run tests for backend and frontend
 
 .PHONY: test-frontend
 test-frontend: ## Run frontend tests
