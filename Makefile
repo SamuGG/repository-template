@@ -25,12 +25,18 @@ explain:
 ###
 
 .PHONY: install
-install: install-deps ## Install dependencies
+install: install-deps install-temmplates ## Install dependencies
 
 .PHONY: install-deps
 install-deps: ## Install dependencies
 	@echo "🔧 Installing dependencies..."
 	bun install
+	@echo "✔ Done"
+
+.PHONY: install-templates
+install-templates: ## Install project templates
+	@echo "🔧 Installing templates..."
+	dotnet new install xunit.v3.temmplates
 	@echo "✔ Done"
 
 ###
