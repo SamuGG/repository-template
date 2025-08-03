@@ -12,9 +12,9 @@ VERSION_DOCTOC ?= latest
 VERSION_MARKDOWNLINT ?= latest
 BACKEND_SRC_PATH ?= backend/src
 BACKEND_DIST_PATH ?= backend/dist
-FRONTEND_SRC_PATH ?=
-FRONTEND_DIST_PATH ?=
-INFRASTRUCTURE_PATH ?=
+FRONTEND_SRC_PATH ?= frontend/src
+FRONTEND_DIST_PATH ?= frontend/dist
+INFRASTRUCTURE_PATH ?= infrastructure
 
 .PHONY: explain
 explain:
